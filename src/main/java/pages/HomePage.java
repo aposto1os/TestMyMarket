@@ -9,6 +9,7 @@ public class HomePage {
     private WebDriver driver;
     private By authenticationLink = By.linkText("Σύνδεση / Εγγραφή");
     private By searchBar = By.id("main-search");
+    private By contactLink = By.cssSelector("[href=\"https://www.mymarket.gr/contact\"]");
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -22,5 +23,10 @@ public class HomePage {
     public ResultsPage searchFor(String product){
         driver.findElement(searchBar).sendKeys(product + Keys.ENTER);
         return new ResultsPage(driver);
+    }
+
+    public ContactPage getContactPage(){
+        driver.findElement(contactLink).click();
+        return new ContactPage(driver);
     }
 }
