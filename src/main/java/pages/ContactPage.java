@@ -19,6 +19,8 @@ public class ContactPage {
     private By phoneField = By.id("phone");
     private By messageField = By.id("message");
     private By subjectDropdown = By.id("subject");
+    private By uploadFileField = By.id("files");
+    private By uploadedFileName = By.cssSelector("ul>li>span:nth-child(2)");
 
 
     public ContactPage(WebDriver driver) {
@@ -46,6 +48,16 @@ public class ContactPage {
             selectedOptionsAsStrings.add(option.getText());
         }
         return selectedOptionsAsStrings;
+    }
+
+    public void uploadFile(String path){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.presenceOfElementLocated(uploadFileField));
+        driver.findElement(uploadFileField).sendKeys(path);
+    }
+
+    public String getUploadedFileName(){
+        return driver.findElement(uploadedFileName).getText();
     }
 
     private Select findDropdown(){
